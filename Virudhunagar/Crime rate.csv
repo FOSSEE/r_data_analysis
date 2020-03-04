@@ -1,0 +1,11 @@
+CrimeType,NoOfCrime,District,National
+Violent Crime,220,11.33,19.53
+Murder,51,2.63,2.74
+Rape,33,1.7,2.78
+Robbery,33,2.21,2.64
+Kidnaping,31,1.6,5.41
+Riots,62,3.19,5.96
+Property,395,20.34,40.17
+Theft,224,12.56,30.77
+Dacoity,2,0.1,0.37
+Burglary,138,7.11,8.62
