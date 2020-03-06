@@ -1,0 +1,134 @@
+---
+title: '**Task-B: Data Collection and Analysis**'
+subtitle: '**District: Virudhunagar**'
+author: "Chowmya Rajakumar"
+date: "31 March 2019"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+bibliography: bibliography.bib
+urlcolor: blue
+---
+
+```{r,echo=FALSE,warning=FALSE,fig.align = "center"}
+knitr::include_graphics("FOSSEE.png")
+  
+
+```
+
+
+```{r,echo=FALSE,warning=FALSE,fig.align = "center"}
+knitr::include_graphics("IIT_Bombay.png")
+```
+\newpage
+
+\tableofcontents
+
+\newpage
+
+> Abstract
+
+In this report, data from the various government departments of Coimbatore district were collected by visiting respective departments in person and by searching for required data on online government portals. Data included in this report are on **Fair Price Shops** and **Crime Rate**. Collected data was analyzed and conclusions were drawn. Analysis was done completely using a **Free-Libre / Open Source Software (FLOSS)** known as **'R'** as a part of **[FOSSEE](https://fossee.in/) Project** by **IIT Bombay** and **MHRD, Government of India.** [FOSSEE](https://fossee.in/) project is part of the National Mission on Education through ICT with the thrust area being adaptation and deployment of open source simulation packages equivalent to proprietary software, funded by MHRD, based at the Indian Institute of Technology Bombay (IITB).
+
+
+
+
+\newpage
+
+>#1.) Introduction
+
+
+Virudhunagar district came into existence by the bifurcation of Ramanathapuram district vide State Government Notification, G.O. Ms. 347 dated 8.3.1985. It is bounded on the north by Madurai and Sivagangai district, south by Tirunelveli and Tuticorin district, east by Ramanathapuram district, west by Kerala state and northwest by Theni district. The administrative headquarters of Virudhunagar district is located at Virudhunagar town. Virudhunagar district consists of three Revenue divisions, ten taluks, 39 Firkas and 600 Revenue Villages.
+
+source: [@vir]
+
+```{r,echo=FALSE,warning=FALSE,fig.align = "center"}
+knitr::include_graphics("Virudhunagar.png")
+```
+
+|                                     *Fig: Map of Virudhunagar district in Tamil Nadu*
+
+\newpage
+
+>#2.) Fair Price Shops
+
+
+Tamil Nadu Government is implementing Universal Public Distribution System (UPDS) and no exclusion is made based on the income criteria. The Hon'ble Chief Minister has made the universal public distribution system 'poor friendly' by ordering rice at free of cost under the public distribution system to all eligible cardholders from 01.06.2011.
+
+Tamil Nadu Civil Supplies Corporation procures rice and other essential commodities required for public distribution system from Food Corporation of India and through tenders. Distribution of commodities through fair price shops is being carried out by Tamil Nadu Civil Supplies Corporation and the Cooperative Societies.
+
+Tamil Nadu Civil Supplies Corporation lifts essential commodities from Food Corporation of India and stores them in 284 operational godowns located all over the state. From the Tamil Nadu Civil Supplies Corporation operational godowns, stocks are moved by lead Cooperative Societies / self lifting societies and delivered at the doorsteps of fair price shops. Similarly, Sugar is moved by Tamil Nadu Civil Supplies Corporation from the respective Cooperative / Private Sugar Mills and distributed through its operational godowns. Tamil Nadu Civil Supplies Corporation also procures various other essential commodities for Special Public Distribution System directly from the market through tenders and also through designated Government of India agencies. Tamil Nadu Civil Supplies Corporation and Cooperatives lift kerosene from wholesale dealers of the oil companies.
+
+source: [@fps]
+
+
+```{r echo=FALSE,warning=FALSE,message=FALSE,error=FALSE}
+library(ggplot2)
+library(ggthemes)
+library(reshape2)
+fps<-read.csv("FairPriceShops.csv",header =TRUE)
+
+g <- ggplot(fps, aes(fps$Taluk,fps$Total))
+g + geom_bar(stat="identity", width = 0.5, fill="tomato2") + 
+      labs(title="Number of Fair Price Shops",x="Taluk",y="Fair Price Shops") +
+    theme(axis.text.x = element_text(angle=60, vjust=0.6))
+
+```
+
+
+
+From the above bar plot, we can observe that the maximum number of Fair Price Shops are in Sivakasi Taluk and the minimum number of Fair Price Shops are in Kariapatti Taluk.
+
+###Smart Card Holders
+
+```{r echo=FALSE,warning=FALSE,message=FALSE,error=FALSE}
+sm<-read.csv("Smart card holders.csv",header =TRUE)
+
+g <- ggplot(sm, aes(sm$TalukName,sm$TotalSmartCardsIssued))
+g + geom_bar(stat="identity", width = 0.5, fill="darkgreen") + 
+      labs(title="Number of Smart Card Holders",x="Taluk",y="Number of Smart Card") +
+    theme(axis.text.x = element_text(angle=60, vjust=0.6))
+
+```
+
+From the above bar plot, we can observe that Sivakasi Taluk has the maximum number of people having a smart card, i.e. 108538 and Kariapatti Taluk has the minimum number of people having a smart card, i.e. 28850.
+
+###Conclusion 
+
+From the above bar plots, we can conclude that Sivakasi Taluk has the maximum population of Smart Card holders and also the maximum number of Fair Price Shops. Similarly, Kariapatti Taluk has the minimum population Smart Card holders and also the minimum number of Fair Price Shops.
+
+
+\newpage
+
+>#3.) Crime Rate 
+
+There are several methods for the measuring of crime. Public surveys are occasionally conducted to estimate the amount of crime that has not been reported to the police. Such surveys are usually more reliable for assessing trends. However, they also have their limitations and generally don't procure statistics useful for local crime prevention, often ignore offenses against children and do not count offenders brought before the criminal justice 
+
+Two major methods for collecting crime data are law enforcement reports, which only reflect crimes that are reported, recorded, and not subsequently canceled and victim study (victimization statistical surveys), which rely on individual memory and honesty. For less frequent crimes such as intentional homicide and armed robbery, reported incidences are generally more reliable but suffer from under-recording.
+
+
+
+```{r echo=FALSE,warning=FALSE,message=FALSE,error=FALSE}
+crime<-read.csv("Crime rate.csv",header =TRUE)
+crime<- crime[,-2]
+ggplot(melt(crime, id.vars='CrimeType'), aes(x=CrimeType, y=value, fill=variable)) + 
+  geom_bar(stat='identity', position='dodge') + 
+  labs( title= "Crime Rate",x="Type of Crime",y="Crime Rate",fill="") +
+  theme(axis.text.x = element_text(angle=60, hjust=1)) 
+
+
+
+
+
+```
+
+###Conclusion
+
+We can observe from the above bar chart that the maximum incidents of crime in the district are property incidents and the minimum crime incidents are dacoity incidents. Theft and violent crimes are also high in the district. 
+
+
+\newpage 
+
+
+#References
